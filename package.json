@@ -2,7 +2,6 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://yourusername.github.io/JAGGU8160",
   "type": "module",
   "scripts": {
     "dev": "vite",
