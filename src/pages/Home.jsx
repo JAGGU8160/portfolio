@@ -19,8 +19,8 @@ const Home = () => {
       <div>
         <Technologies limit={4} />
         <div className='tech-view-btn-div'>
-          <Link to="/technologies" className="tech-view-btn">
-            View More<GoProjectSymlink className="contact-icons"/>
+          <Link to="/technologies" className="comman-btn">
+            View More<GoProjectSymlink className="cmn-icons"/>
           </Link>
         </div>
       </div>

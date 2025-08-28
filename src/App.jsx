@@ -17,13 +17,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-         <Route path="/technologies" element={<TechnologiesPage />} />
-        <Route path="*" element={<Resume/>}/>
-        <Route path="*" element={<ProjectsSlider/>}/>
-        <Route path="*" element={<Contact/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/technologies" element={<TechnologiesPage />} />
+        <Route path="/resume" element={<Resume />} />
+        <Route path="/projects" element={<ProjectsSlider />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      <Toaster/>
+      <Toaster />
     </Router>
   );
 };

@@ -1,10 +1,10 @@
-import Navbar  from '../components/navbar';
 import Technologies from '../components/technologies';
+import Breadcrumb from '../components/breadcrumb';
 
 function TechnologiesPage() {
   return (
     <div>
-        <Navbar/>
+      <Breadcrumb/>
       <Technologies />
     </div>
   );

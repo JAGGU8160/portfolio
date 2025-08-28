@@ -4,7 +4,7 @@ import { VscGithub } from "react-icons/vsc";
 import { MdMailOutline,MdOutlineLocalPhone } from "react-icons/md";
 import { IoLocationOutline, IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-
+import { Link as ScrollLink} from "react-scroll";
 
 
 export const Navbar = () => {
@@ -51,7 +51,8 @@ export const Navbar = () => {
 
       <nav className="navbar navbar-expand-lg ">
         <div className="container">
-          <a className="navbar-brand" href="#">Mishra Jagmohan</a>
+          <a className="navbar-brand" href="/">Mishra Jagmohan</a>
+          
 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar"aria-expanded="false"aria-label="Toggle navigation">
             <span className="toggle-btn"><IoMenu /></span>
@@ -60,19 +61,19 @@ export const Navbar = () => {
           <div className="collapse navbar-collapse" id="main-navbar">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/Home">Home</Link>
+                <ScrollLink  className="nav-link" to="home" smooth={true} duration={500} offset={-56}>Home</ScrollLink >
               </li>
               <li className="nav-item">
-                <Link  className="nav-link" to="/technologies">Technologies</Link >
+                <ScrollLink   className="nav-link"  to="technologies" smooth={true} duration={500} offset={-56}>Technologies</ScrollLink  >
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Resume</a>
+                <ScrollLink  className="nav-link"  to="resume" smooth={true} duration={500} offset={-56}>Resume</ScrollLink >
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Projects</a>
+                <ScrollLink  className="nav-link"  to="projects" smooth={true} duration={500} offset={-56}>Projects</ScrollLink >
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Contact Me</a>
+                <ScrollLink  className="nav-link"  to="contact" smooth={true} duration={500} offset={-56}>Contact Me</ScrollLink >
               </li>
             </ul>
           </div>
