@@ -1,85 +1,128 @@
-import { FaNodeJs, FaBootstrap, FaPython,FaReact } from "react-icons/fa";
-import {SiMongodb,SiExpress, SiTailwindcss, SiGithub,SiFlask  } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { memo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Element } from "react-scroll";
+import { Link } from "react-router-dom";
+import { HiArrowRight } from "react-icons/hi2";
+import techStack from "../data/techStack";
 
-const technologies = [
-  {
-    title: 'React.js',
-    description: 'A JavaScript library for building user interfaces.',
-    icon: <FaReact className="tech-card-icon" />,
-  },
-  {
-    title: 'MongoDB',
-    description: 'NoSQL document database with scalability and flexibility.',
-    icon: <SiMongodb className="tech-card-icon" />,
-  },
-  {
-    title: 'Express.js',
-    description: 'A minimal and flexible Node.js web framework.',
-    icon: <SiExpress className="tech-card-icon" />,
-  },
-  {
-    title: 'Node.js',
-    description: 'JavaScript runtime built on Chrome’s V8 engine.',
-    icon: <FaNodeJs className="tech-card-icon" />,
-  },
-  {
-    title: "Bootstrap",
-    description: "Popular CSS framework for building responsive websites quickly.",
-    icon: <FaBootstrap className="tech-card-icon" />,
-  },
-  {
-    title: "Tailwind CSS",
-    description: "Utility-first CSS framework for rapidly building custom UI.",
-    icon: <SiTailwindcss className="tech-card-icon" />,
-  },
-  {
-    title: "Django",
-    description: "High-level Python web framework for clean and rapid development.",
-    icon: <FaPython className="tech-card-icon" />,
-  },
-  {
-    title: "Flask",
-    description: "Flask is a micro web framework written in Python.",
-    icon: <SiFlask  className="tech-card-icon" />,
-  },
-  {
-    title: "GitHub Pages",
-    description: "Host your static websites directly from your GitHub repository.",
-    icon: <SiGithub className="tech-card-icon" />,
-  },
-];
+const EASE = [0.16, 1, 0.3, 1];
 
-function Technologies({ limit }) {
-  const displayTechs = limit ? technologies.slice(0, limit) : technologies;
+/**
+ * Homepage tech section — shows a curated preview (2 categories max)
+ * with a CTA to the full /technologies page.
+ */
+const Technologies = memo(({ limit }) => {
+  const prefersReduced = useReducedMotion();
+
+  // On homepage: show first 2 categories. On full page: show all.
+  const categories = limit ? techStack.slice(0, 2) : techStack;
 
   return (
-    <Element className="cmn-sec  tech-section" name="technologies">
+    <Element className="tech-section" name="technologies">
       <div className="container">
-        <div className="heading-txt">
-          <h2 className="section-title">TECHNOLOGIES</h2>
-          <h2 className="section-subtitle">The Frameworks and tools that power my development journey, from designing clean interfaces to building robust backends.</h2>
+        {/* Section header */}
+        <div className="tech-header">
+          <motion.span
+            className="tech-label"
+            initial={prefersReduced ? {} : { opacity: 0, y: 12 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, ease: EASE }}
+          >
+            Tech Stack
+          </motion.span>
+          <motion.h2
+            className="tech-title"
+            initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
+          >
+            Tools I use to ship real products
+          </motion.h2>
+          <motion.p
+            className="tech-subtitle"
+            initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
+          >
+            Not just frameworks I've heard of — these are technologies I use
+            daily to build AI-powered apps and automation workflows.
+          </motion.p>
         </div>
-        <div className="row tech-cards">
-          {displayTechs.map((tech, idx) => (
-            <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12"  key={idx}>
-              <div className="tech-card" key={idx}>
-                <div className="tech-card-icon-wrapper">{tech.icon}</div>
-                <div className="tech-card-body">
-                  <h5 className="tech-card-title">{tech.title}</h5>
-                  <p className="tech-card-text">{tech.description}</p>
-                </div>
-                <div className="tech-card-footer">
-                  <Link to="<Technologies/>" className="tech-btn">View More</Link>
-                </div>
-              </div>
+
+        {/* Category groups */}
+        {categories.map((cat, catIdx) => (
+          <div className="tech-category" key={cat.category}>
+            <motion.h3
+              className="tech-category-title"
+              initial={prefersReduced ? {} : { opacity: 0, x: -12 }}
+              whileInView={prefersReduced ? {} : { opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: catIdx * 0.05, ease: EASE }}
+            >
+              {cat.category}
+            </motion.h3>
+
+            <div className="tech-grid">
+              {cat.items.map((tech, idx) => {
+                const Icon = tech.icon;
+                return (
+                  <motion.div
+                    className="tech-card-v2"
+                    key={tech.title}
+                    initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+                    whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{
+                      duration: 0.4,
+                      delay: idx * 0.08,
+                      ease: EASE,
+                    }}
+                  >
+                    <div className="tc-icon">
+                      <Icon />
+                    </div>
+                    <div className="tc-content">
+                      <h4 className="tc-name">{tech.title}</h4>
+                      <p className="tc-usage">{tech.usage}</p>
+                      {tech.projects.length > 0 && (
+                        <div className="tc-projects">
+                          {tech.projects.map((p) => (
+                            <span className="tc-project-tag" key={p}>
+                              {p}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+
+        {/* CTA to full page — only on homepage */}
+        {limit && (
+          <motion.div
+            className="tech-cta-row"
+            initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1, ease: EASE }}
+          >
+            <Link to="/technologies" className="tech-cta-btn">
+              View Full Stack
+              <HiArrowRight />
+            </Link>
+          </motion.div>
+        )}
       </div>
     </Element>
   );
-}
+});
 
+Technologies.displayName = "Technologies";
 export default Technologies;

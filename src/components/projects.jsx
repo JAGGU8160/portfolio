@@ -1,86 +1,109 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { memo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Element } from "react-scroll";
-import { Navigation, Pagination, A11y ,Autoplay } from 'swiper/modules';
+import { HiArrowUpRight } from "react-icons/hi2";
 
-const projects = [
+const EASE = [0.16, 1, 0.3, 1];
+
+const PROJECTS = [
   {
-    title: 'Lab Static Page',
-    image: 'lab.png', 
-    description: 'A modern dashboard app built with React and Redux.',
-    tech: 'React, Redux, Chart.js',
-    liveUrl: 'https://jaggu8160.github.io/Lab-Static-Page/ ',
+    title: "SciLab Analytics",
+    image: "lab.png",
+    description:
+      "Data visualization dashboard for a laboratory management system — interactive charts, real-time metric tracking, and filterable reports for research teams.",
+    tech: ["React", "Chart.js", "REST API", "Tailwind CSS"],
+    liveUrl: "https://jaggu8160.github.io/Lab-Static-Page/",
+    cta: "Live Demo",
   },
   {
-    title: 'Agency Static Page',
-    image: 'agency.png',
-    description: 'E-commerce site with payment integration and user profiles.',
-    tech: 'Node.js, Express, MongoDB',
-    liveUrl: 'https://jaggu8160.github.io/Agency-Stactic-Page/ ',
+    title: "NexaAgency",
+    image: "agency.png",
+    description:
+      "Full-service digital agency landing page with service showcases, client testimonials, and a contact pipeline — built for lead generation and conversion.",
+    tech: ["React", "Node.js", "Express", "MongoDB"],
+    liveUrl: "https://jaggu8160.github.io/Agency-Stactic-Page/",
+    cta: "Live Demo",
   },
   {
-    title: 'CA Static Page',
-    image: 'ca.png',
-    description: 'Mobile-first portfolio with responsive design and animations.',
-    tech: 'Next.js, CSS Modules, Framer Motion',
-    liveUrl: 'http://jaggu8160.github.io/CA-Static-Page/ ',
-  },
-  {
-    title: 'Project Delta',
-    image: 'ca.png',
-    description: 'Real-time chat application with WebSocket support.',
-    tech: 'Socket.IO, React, Node.js',
-    liveUrl: 'https://jaggu8160.github.io/Lab-Static-Page/ ',
+    title: "FinEdge CA Portal",
+    image: "ca.png",
+    description:
+      "Professional portal for a chartered accountancy firm — service breakdowns, document request flows, and client onboarding with responsive mobile-first design.",
+    tech: ["Next.js", "Framer Motion", "CSS Modules"],
+    liveUrl: "http://jaggu8160.github.io/CA-Static-Page/",
+    cta: "Live Demo",
   },
 ];
 
-function ProjectsSlider() {
-  return (
-    <Element className="cmn-sec projectsSection" name='projects'>
-      <div className="heading-txt">
-        <h2 className="section-title">PROJECTS</h2>
-        <h2 className="section-subtitle">Here are some of the projects that showcase my skills and experience.</h2>
-      </div>
-      <div className="container">
-        <Swiper
-          modules={[Navigation, Pagination, A11y, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          loop={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          className="projectsSwiper">
-            <div className="row">
-            {projects.map((proj, index) => (
-              <div className="col-md-4">
-                <SwiperSlide key={index} className="projectCard">
-                  <a href={proj.liveUrl} target="_blank" rel="noopener noreferrer" className="project-link">
-                    <img src={proj.image} alt={proj.title} className="projectImage" />
-                    <h3 className="projectTitle">{proj.title}</h3>
-                    <p className="projectDescription">{proj.description}</p>
-                    <p className="projectTech">{proj.tech}</p>
-                    <span className="projectVisitBtn">Visit &#8599;</span>
-                  </a>
-                </SwiperSlide>
-              </div>
-            ))}
-            </div>
-        </Swiper>
-      </div>
+const ProjectsSection = memo(() => {
+  const prefersReduced = useReducedMotion();
 
+  const anim = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-40px" },
+          transition: { duration: 0.45, delay, ease: EASE },
+        };
+
+  return (
+    <Element name="projects">
+      <section className="projects-section">
+        <div className="container">
+          {/* Header */}
+          <motion.div className="projects-header" {...anim(0)}>
+            <span className="projects-label">Projects</span>
+            <h2 className="projects-title">Things I've built</h2>
+            <p className="projects-subtitle">
+              Production apps and client projects — not tutorials or
+              assignments. Each one solved a real problem.
+            </p>
+          </motion.div>
+
+          {/* Grid */}
+          <div className="projects-grid">
+            {PROJECTS.map((proj, i) => (
+              <motion.a
+                key={proj.title}
+                href={proj.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card"
+                {...anim(i * 0.08)}
+              >
+                {/* Image */}
+                <div className="pc-image-wrap">
+                  <img
+                    src={proj.image}
+                    alt={proj.title}
+                    className="pc-image"
+                    loading="lazy"
+                  />
+                  <span className="pc-overlay-cta">
+                    {proj.cta} <HiArrowUpRight />
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="pc-body">
+                  <h3 className="pc-title">{proj.title}</h3>
+                  <p className="pc-desc">{proj.description}</p>
+                  <div className="pc-tech">
+                    {proj.tech.map((t) => (
+                      <span className="pc-tech-tag" key={t}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
     </Element>
   );
-}
+});
 
-export default ProjectsSlider;
+ProjectsSection.displayName = "ProjectsSection";
+export default ProjectsSection;

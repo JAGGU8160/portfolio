@@ -1,21 +1,19 @@
-import React from 'react'
+import React from "react";
 import "./App.css";
-import { Toaster } from 'react-hot-toast'
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import TechnologiesPage from './pages/technologiesPage.jsx'
-import NotFound from './pages/NotFound.jsx'
+import { Toaster } from "react-hot-toast";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import TechnologiesPage from "./pages/TechnologiesPage.jsx";
+import NotFound from "./pages/NotFound.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Resume from './components/resume.jsx';
-import ProjectsSlider from './components/projects.jsx';
-import Contact from './components/contact.jsx';
-
-
+import Resume from "./components/resume.jsx";
+import ProjectsSlider from "./components/projects.jsx";
+import Contact from "./components/contact.jsx";
 
 const App = () => {
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/technologies" element={<TechnologiesPage />} />
@@ -25,7 +23,7 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
-    </Router>
+    </>
   );
 };
 
