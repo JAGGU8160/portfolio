@@ -3,7 +3,7 @@ import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import TechnologiesPage from "./pages/TechnologiesPage.jsx";
+import TechnologiesPage from "./pages/technologiesPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
