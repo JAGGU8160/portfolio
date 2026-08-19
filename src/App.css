@@ -1344,6 +1344,9 @@ body {
 .project-card:hover .pc-image {
   transform: scale(1.04);
 }
+.pc-gradient {
+  display: block;
+}
 
 /* Hover overlay CTA */
 .pc-overlay-cta {

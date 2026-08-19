@@ -7,8 +7,39 @@ const EASE = [0.16, 1, 0.3, 1];
 
 const PROJECTS = [
   {
+    title: "PrintOpsAI",
+    image: null,
+    gradient: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0ea5e9 100%)",
+    description:
+      "AI automation SaaS for print shops — 24/7 lead-capture chatbot, automated quote generation, web-to-print storefront, and end-to-end workflow management built exclusively for the printing industry.",
+    tech: ["React", "Node.js", "OpenAI API", "n8n", "Tailwind CSS"],
+    liveUrl: "https://printopsai.com/",
+    cta: "Live Site",
+  },
+  {
+    title: "Store2Print",
+    image: null,
+    gradient: "linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #7c3aed 100%)",
+    description:
+      "Full-featured printing e-commerce platform — product catalog, instant quote generation, order management, and same-day rush ordering with a 4.9-star rated UX.",
+    tech: ["React", "Node.js", "REST API", "Tailwind CSS"],
+    liveUrl: "https://s2p.printai.cloud/",
+    cta: "Live Site",
+  },
+  {
+    title: "Orion Space Digest",
+    image: null,
+    gradient: "linear-gradient(135deg, #0a0a1a 0%, #0d1b4b 50%, #6366f1 100%)",
+    description:
+      "Daily astronomy news platform for Gujarat — live NASA APOD feed, tonight's sky data for local coordinates, curated space stories with AI-scored Space Pulse rating.",
+    tech: ["React", "Vercel", "NASA API", "REST API"],
+    liveUrl: "https://orion-space-digest.vercel.app/",
+    cta: "Live Site",
+  },
+  {
     title: "SciLab Analytics",
     image: "lab.png",
+    gradient: null,
     description:
       "Data visualization dashboard for a laboratory management system — interactive charts, real-time metric tracking, and filterable reports for research teams.",
     tech: ["React", "Chart.js", "REST API", "Tailwind CSS"],
@@ -18,6 +49,7 @@ const PROJECTS = [
   {
     title: "NexaAgency",
     image: "agency.png",
+    gradient: null,
     description:
       "Full-service digital agency landing page with service showcases, client testimonials, and a contact pipeline — built for lead generation and conversion.",
     tech: ["React", "Node.js", "Express", "MongoDB"],
@@ -27,6 +59,7 @@ const PROJECTS = [
   {
     title: "FinEdge CA Portal",
     image: "ca.png",
+    gradient: null,
     description:
       "Professional portal for a chartered accountancy firm — service breakdowns, document request flows, and client onboarding with responsive mobile-first design.",
     tech: ["Next.js", "Framer Motion", "CSS Modules"],
@@ -75,12 +108,11 @@ const ProjectsSection = memo(() => {
               >
                 {/* Image */}
                 <div className="pc-image-wrap">
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    className="pc-image"
-                    loading="lazy"
-                  />
+                  {proj.image ? (
+                    <img src={proj.image} alt={proj.title} className="pc-image" loading="lazy" />
+                  ) : (
+                    <div className="pc-image pc-gradient" style={{ background: proj.gradient }} aria-hidden="true" />
+                  )}
                   <span className="pc-overlay-cta">
                     {proj.cta} <HiArrowUpRight />
                   </span>
